@@ -1,0 +1,10 @@
+{{#if currentUser}}
+  {{user-field field=field value=value}}
+
+  {{d-button
+    class="btn-primary save-changes"
+    action=(action "submitUserField")
+    label="save"
+    isLoading=isSaving
+  }}
+{{/if}}

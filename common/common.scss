@@ -1,0 +1,24 @@
+.user-field-prompt {
+  padding: 1em;
+  border: 5px solid var(--primary-low);
+  background: var(--secondary);
+
+  .user-field {
+    .control-label {
+      font-weight: 700;
+      font-size: $font-up-1;
+
+      span {
+        font-weight: 500;
+        font-size: $font-down-1;
+      }
+    }
+
+    .instructions {
+      color: var(--primary-medium);
+      margin-top: 0.5em;
+      margin-bottom: 1em;
+      font-size: $font-down-1;
+    }
+  }
+}
