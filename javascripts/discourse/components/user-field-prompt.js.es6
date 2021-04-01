@@ -4,22 +4,24 @@ import { popupAjaxError } from "discourse/lib/ajax-error";
 import Component from "@ember/component";
 
 export default Component.extend({
-  classNames: ["user-field-prompt"],
+  tagName: "",
   layoutName: "components/user-field-prompt",
-  field: null,
-  value: null,
+  fields: null,
   isSaving: false,
 
   @action
-  submitUserField() {
+  submitUserFields() {
     this.set("isSaving", true);
 
-    return ajax(
-      `/u/${this.currentUser.username}.json?user_fields[${this.field.id}]=${this.value}`,
-      {
-        type: "PUT",
-      }
-    )
+    const userFields = {};
+    this.fields.forEach((field) => {
+      userFields[field.userField.id] = field.value;
+    });
+
+    return ajax(`/u/${this.currentUser.username}.json`, {
+      type: "PUT",
+      data: { user_fields: userFields },
+    })
       .catch(popupAjaxError)
       .finally(() => {
         this.set("isSaving", false);

@@ -9,23 +9,30 @@ function _attachUserFieldPrompt(api, element) {
     return;
   }
 
-  const fieldElements = element.querySelectorAll(
-    ".d-wrap[data-wrap=user-field]"
-  );
+  const fieldsElement = element.querySelector(".d-wrap[data-wrap=user-field]");
 
-  if (!fieldElements.length) {
+  if (!fieldsElement) {
     return;
   }
+
+  const names = (fieldsElement.dataset.names || "").split(",").filter(Boolean);
+  const maxHeight = Math.min(names.length * 100, 600);
+
+  fieldsElement.style.height = maxHeight + "px";
+
+  fieldsElement.innerHTML = '<div class="spinner"></div>';
 
   ajax(`/u/${currentUser.username}.json`, {
     type: "GET",
   })
     .then((result) => {
+      fieldsElement.innerHTML = "";
+
       if (result) {
         const userFields = result.user.user_fields;
+        const fields = [];
 
-        fieldElements.forEach((fieldElement) => {
-          const name = fieldElement.dataset.name;
+        names.forEach((name) => {
           const field = Site.currentProp("user_fields").findBy("name", name);
 
           if (!field) {
@@ -34,14 +41,19 @@ function _attachUserFieldPrompt(api, element) {
 
           const value = userFields[field.id];
 
-          const component = api.container.owner
-            .factoryFor("component:user-field-prompt")
-            .create({
-              field,
-              value,
-            });
-          component.renderer.appendTo(component, fieldElement);
+          fields.push({
+            value,
+            userField: field,
+          });
         });
+
+        const component = api.container.owner
+          .factoryFor("component:user-field-prompt")
+          .create({
+            fields,
+          });
+
+        component.renderer.appendTo(component, fieldsElement);
       }
     })
     .catch(popupAjaxError);

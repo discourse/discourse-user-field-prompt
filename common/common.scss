@@ -1,9 +1,27 @@
-.user-field-prompt {
+.d-wrap[data-wrap="user-field"] {
   padding: 1em;
   border: 5px solid var(--primary-low);
   background: var(--secondary);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-field-prompt {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 100%;
 
   .user-field {
+    margin-bottom: 1em;
+
+    input[type="text"],
+    .select-kit {
+      margin: 0;
+      width: 220px;
+    }
+
     .control-label {
       font-weight: 700;
       font-size: $font-up-1;
@@ -16,8 +34,7 @@
 
     .instructions {
       color: var(--primary-medium);
-      margin-top: 0.5em;
-      margin-bottom: 1em;
+      margin-top: 0.25em;
       font-size: $font-down-1;
     }
   }
