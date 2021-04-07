@@ -16,6 +16,7 @@ function _attachUserFieldPrompt(api, element) {
   }
 
   const names = (fieldsElement.dataset.names || "").split(",").filter(Boolean);
+  const maxHeight = Math.min(names.length * 100 + 50, 600);
 
   fieldsElement.style.height = maxHeight + "px";
 
