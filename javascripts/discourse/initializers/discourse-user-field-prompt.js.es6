@@ -16,7 +16,6 @@ function _attachUserFieldPrompt(api, element) {
   }
 
   const names = (fieldsElement.dataset.names || "").split(",").filter(Boolean);
-  const maxHeight = Math.min(names.length * 100, 600);
 
   fieldsElement.style.height = maxHeight + "px";
 
@@ -36,6 +35,15 @@ function _attachUserFieldPrompt(api, element) {
           const field = Site.currentProp("user_fields").findBy("name", name);
 
           if (!field) {
+            /* eslint-disable no-console */
+            console.error(
+              `Couldn’t find "${name}" in user fields: ${Site.currentProp(
+                "user_fields"
+              )
+                .map((f) => `"${f.name}"`)
+                .join(", ")}`
+            );
+            /* eslint-enable no-console */
             return;
           }
 
