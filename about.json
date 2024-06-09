@@ -1,6 +1,6 @@
 {
-  "name": "discourse-user-field-prompt",
-  "about_url": null,
+  "name": "User Field Prompt",
+  "about_url": "https://meta.discourse.org/t/user-field-prompt/185214",
   "license_url": null,
   "component": true
 }
