@@ -1,7 +1,7 @@
-{{#if currentUser}}
+{{#if this.currentUser}}
   <div class="user-field-prompt">
     <div class="fields-container">
-      {{#each fields as |field|}}
+      {{#each this.fields as |field|}}
         {{user-field field=field.userField value=field.value}}
       {{/each}}
     </div>
@@ -11,7 +11,7 @@
         class="btn-primary save-changes"
         action=(action "submitUserFields")
         label="save"
-        isLoading=isSaving
+        isLoading=this.isSaving
       }}
     </div>
   </div>
