@@ -1,13 +1,14 @@
 import Component from "@ember/component";
 import { action } from "@ember/object";
+import { tagName } from "@ember-decorators/component";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 
-export default Component.extend({
-  tagName: "",
-  layoutName: "components/user-field-prompt",
-  fields: null,
-  isSaving: false,
+@tagName("")
+export default class UserFieldPrompt extends Component {
+  layoutName = "components/user-field-prompt";
+  fields = null;
+  isSaving = false;
 
   @action
   submitUserFields() {
@@ -26,5 +27,5 @@ export default Component.extend({
       .finally(() => {
         this.set("isSaving", false);
       });
-  },
-});
+  }
+}
