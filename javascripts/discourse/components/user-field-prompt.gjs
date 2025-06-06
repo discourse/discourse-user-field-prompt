@@ -1,6 +1,8 @@
 import Component from "@ember/component";
 import { action } from "@ember/object";
 import { tagName } from "@ember-decorators/component";
+import DButton from "discourse/components/d-button";
+import UserField from "discourse/components/user-field";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 
@@ -28,4 +30,25 @@ export default class UserFieldPrompt extends Component {
         this.set("isSaving", false);
       });
   }
+
+  <template>
+    {{#if this.currentUser}}
+      <div class="user-field-prompt">
+        <div class="fields-container">
+          {{#each this.fields as |field|}}
+            <UserField @field={{field.userField}} @value={{field.value}} />
+          {{/each}}
+        </div>
+
+        <div class="actions">
+          <DButton
+            class="btn-primary save-changes"
+            @action={{action "submitUserFields"}}
+            @label="save"
+            @isLoading={{this.isSaving}}
+          />
+        </div>
+      </div>
+    {{/if}}
+  </template>
 }
