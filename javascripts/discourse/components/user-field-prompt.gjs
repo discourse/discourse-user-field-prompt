@@ -43,7 +43,7 @@ export default class UserFieldPrompt extends Component {
         <div class="actions">
           <DButton
             class="btn-primary save-changes"
-            @action={{action "submitUserFields"}}
+            @action={{this.submitUserFields}}
             @label="save"
             @isLoading={{this.isSaving}}
           />
