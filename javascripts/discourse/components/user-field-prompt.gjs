@@ -8,7 +8,6 @@ import { popupAjaxError } from "discourse/lib/ajax-error";
 
 @tagName("")
 export default class UserFieldPrompt extends Component {
-  layoutName = "components/user-field-prompt";
   fields = null;
   isSaving = false;
 
