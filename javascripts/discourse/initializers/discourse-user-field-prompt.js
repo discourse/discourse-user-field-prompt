@@ -1,9 +1,11 @@
+import curryComponent from "ember-curry-component";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import Site from "discourse/models/site";
+import UserFieldPrompt from "../components/user-field-prompt";
 
-function _attachUserFieldPrompt(api, element) {
+function _attachUserFieldPrompt(api, element, helper) {
   const currentUser = api.getCurrentUser();
   if (!currentUser) {
     return;
@@ -56,13 +58,10 @@ function _attachUserFieldPrompt(api, element) {
           });
         });
 
-        const component = api.container.owner
-          .factoryFor("component:user-field-prompt")
-          .create({
-            fields,
-          });
-
-        component.renderer.appendTo(component, fieldsElement);
+        helper.renderGlimmer(
+          fieldsElement,
+          curryComponent(UserFieldPrompt, { fields }, api.container)
+        );
       }
     })
     .catch(popupAjaxError);
@@ -74,8 +73,8 @@ export default {
   initialize() {
     withPluginApi("0.11.1", (api) => {
       api.decorateCookedElement(
-        (element, post) => {
-          _attachUserFieldPrompt(api, element, post);
+        (element, post, helper) => {
+          _attachUserFieldPrompt(api, element, post, helper);
         },
         {
           onlyStream: true,
