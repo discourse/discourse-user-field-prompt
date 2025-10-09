@@ -71,7 +71,7 @@ export default {
   name: "discourse-user-field-prompt",
 
   initialize() {
-    withPluginApi("0.11.1", (api) => {
+    withPluginApi((api) => {
       api.decorateCookedElement(
         (element, post, helper) => {
           _attachUserFieldPrompt(api, element, post, helper);
