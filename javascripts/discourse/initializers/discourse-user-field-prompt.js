@@ -35,7 +35,9 @@ function _attachUserFieldPrompt(api, element, helper) {
         const fields = [];
 
         names.forEach((name) => {
-          const field = Site.currentProp("user_fields").findBy("name", name);
+          const field = Site.currentProp("user_fields").find(
+            (f) => f.name === name
+          );
 
           if (!field) {
             /* eslint-disable no-console */
